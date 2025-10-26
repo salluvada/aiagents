@@ -28,7 +28,7 @@ const Chat = () => {
 
     try {
       const result = await genAI.models.generateContent({
-        model: 'gemini-pro',
+        model: 'gemini-2.5-flash',
         contents: currentInput,
       });
       const response = result.response;
