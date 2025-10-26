@@ -21,14 +21,17 @@ const Chat = () => {
 
     const userMessage = { text: input, sender: 'user' };
     setMessages((prevMessages) => [...prevMessages, userMessage]);
+    const currentInput = input;
     setInput('');
     setIsLoading(true);
     setError(null);
 
     try {
-      const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
-      const result = await model.generateContent(input);
-      const response = await result.response;
+      const result = await genAI.models.generateContent({
+        model: 'gemini-pro',
+        contents: currentInput,
+      });
+      const response = result.response;
       const text = response.text();
 
       const botMessage = { text, sender: 'bot' };

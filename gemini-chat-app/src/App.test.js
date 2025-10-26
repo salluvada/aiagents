@@ -3,13 +3,13 @@ import App from './App';
 
 jest.mock('@google/genai', () => ({
   GoogleGenAI: jest.fn().mockImplementation(() => ({
-    getGenerativeModel: jest.fn().mockResolvedValue({
+    models: {
       generateContent: jest.fn().mockResolvedValue({
         response: {
           text: () => 'Hello! How can I help you today?',
         },
       }),
-    }),
+    },
   })),
 }));
 
