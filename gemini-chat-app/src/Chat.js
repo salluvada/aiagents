@@ -32,7 +32,7 @@ const Chat = () => {
         contents: currentInput,
       });
       const response = result.response;
-      const text = response.text();
+      const text = response.candidates[0].content.parts[0].text;
 
       const botMessage = { text, sender: 'bot' };
       setMessages((prevMessages) => [...prevMessages, botMessage]);
