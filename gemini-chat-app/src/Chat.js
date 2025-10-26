@@ -4,7 +4,7 @@ import { GoogleGenAI } from '@google/genai';
 // IMPORTANT: Create a .env file in the root of the gemini-chat-app directory
 // and add your API key like this:
 // REACT_APP_GEMINI_API_KEY=YOUR_API_KEY
-const genAI = new GoogleGenAI(process.env.REACT_APP_GEMINI_API_KEY);
+const genAI = new GoogleGenAI({ apiKey: process.env.REACT_APP_GEMINI_API_KEY });
 
 const Chat = () => {
   const [messages, setMessages] = useState([]);
