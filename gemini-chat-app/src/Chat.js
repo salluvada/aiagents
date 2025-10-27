@@ -31,8 +31,7 @@ const Chat = () => {
         model: 'gemini-2.5-flash',
         contents: currentInput,
       });
-      const response = result.response;
-      const text = response.candidates[0].content.parts[0].text;
+      const text = result.candidates[0].content.parts[0].text;
 
       const botMessage = { text, sender: 'bot' };
       setMessages((prevMessages) => [...prevMessages, botMessage]);

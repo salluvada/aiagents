@@ -5,19 +5,17 @@ jest.mock('@google/genai', () => ({
   GoogleGenAI: jest.fn().mockImplementation(() => ({
     models: {
       generateContent: jest.fn().mockResolvedValue({
-        response: {
-          candidates: [
-            {
-              content: {
-                parts: [
-                  {
-                    text: 'Hello! How can I help you today?',
-                  },
-                ],
-              },
+        candidates: [
+          {
+            content: {
+              parts: [
+                {
+                  text: 'Hello! How can I help you today?',
+                },
+              ],
             },
-          ],
-        },
+          },
+        ],
       }),
     },
   })),
