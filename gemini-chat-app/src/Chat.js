@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import { GoogleGenAI } from '@google/genai';
+import ReactMarkdown from 'react-markdown';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { a11yDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import remarkGfm from 'remark-gfm';
 
 // IMPORTANT: Create a .env file in the root of the gemini-chat-app directory
 // and add your API key like this:
@@ -48,7 +52,34 @@ const Chat = () => {
       <div className="messages">
         {messages.map((message, index) => (
           <div key={index} className={`message ${message.sender}`}>
-            <p>{message.text}</p>
+            {message.sender === 'bot' ? (
+              <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
+                components={{
+                  code({ node, inline, className, children, ...props }) {
+                    const match = /language-(\w+)/.exec(className || '');
+                    return !inline && match ? (
+                      <SyntaxHighlighter
+                        style={a11yDark}
+                        language={match[1]}
+                        PreTag="div"
+                        {...props}
+                      >
+                        {String(children).replace(/\n$/, '')}
+                      </SyntaxHighlighter>
+                    ) : (
+                      <code className={className} {...props}>
+                        {children}
+                      </code>
+                    );
+                  },
+                }}
+              >
+                {message.text}
+              </ReactMarkdown>
+            ) : (
+              <p>{message.text}</p>
+            )}
           </div>
         ))}
         {isLoading && <div className="message bot"><p>Thinking...</p></div>}
